@@ -1,0 +1,66 @@
+
+<!-- saved from url=(0033)https://ads.adpone.com/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><script type="2fca3a11bc6be5de70a6a67b-text/javascript" src="./userSync.js.t&#7843;i xu&#7889;ng"></script>
+</head><body marginwidth="0" marginheight="0"><div id="adpone-pixel"></div>
+<script type="2fca3a11bc6be5de70a6a67b-text/javascript">
+    var adponeId = getCookie("adpone_id")
+
+    function generateUUID() {
+        var d = new Date().getTime();
+        if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+            d += performance.now();
+        }
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    }
+
+    function getCookie(name) {
+        var dc = document.cookie;
+        var prefix = name + "=";
+        var begin = dc.indexOf("; " + prefix);
+        if (begin == -1) {
+            begin = dc.indexOf(prefix);
+            if (begin != 0) return null;
+        }
+        else
+        {
+            begin += 2;
+            var end = document.cookie.indexOf(";", begin);
+            if (end == -1) {
+                end = dc.length;
+            }
+        }
+        return decodeURI(dc.substring(begin + prefix.length, end));
+    }
+
+    if (!adponeId) {
+        adponeId = generateUUID()
+        document.cookie = "adpone_id=" + adponeId +";domain=.adpone.com"
+    }
+
+    /* SMART SYNC */
+    var img = document.createElement('img')
+    img.src = "https://sync.smartadserver.com/getuid?url=https%3A%2F%2Fusersync.adpone.com%2Fsetuid%3Fplatform%3Dsmart%26adp%3D" + adponeId + "%26uid%3D[sas_uid]";
+    img.height = 0
+    img.width = 0
+    var src = document.getElementById("adpone-pixel");
+
+    src.appendChild(img);
+
+    /* PUBMATIC SYNC */
+    PubMaticSync.sync({
+        pubId: 156383,
+        delay: 0,
+        url: "https://usersync.adpone.com/setuid?uid=(PM_UID)&platform=pubmatic&adp="+ adponeId,
+        macro: '(PM_UID)',
+    });
+
+    window.onload = function() {
+        window.parent.postMessage(getCookie("adpone_id"), "*");
+
+    }
+
+</script></body></html>
